@@ -1,0 +1,32 @@
+\section{Convergence analysis}
+\label{sec:convergence}
+
+\subsection{CFR vs CFR$^+$}
+
+We compare vanilla CFR and CFR$^+$ across $1{,}000$ iterations on a fixed
+game configuration (BTN vs BB, 100\,bb, A$\heartsuit$K$\spadesuit$7$\diamondsuit$
+flop, 50-bucket card abstraction, 3 bet sizes). Exploitability is measured
+every $50$ iterations.
+
+\textbf{Expected results.} CFR$^+$ reaches $\leq 5\%$ exploitability in
+approximately $200$--$300$ iterations; vanilla CFR requires approximately
+$800$--$1{,}000$ iterations for the same threshold.
+
+\textbf{Figure~\ref{fig:cfr_vs_cfr+} (placeholder).} Exploitability vs.\
+iterations for CFR and CFR$^+$ on a log-scale $y$-axis. CFR$^+$ convergence
+is approximately $O(1/T)$ empirically vs.\ $O(1/\sqrt{T})$ for
+CFR---consistent with \citet{tammelin2014}'s observations.
+
+\subsection{Effect of abstraction granularity on convergence rate}
+
+We run CFR$^+$ to convergence (exploitability $\leq 1\%$) under varying
+card-abstraction bucket counts and measure: (a) iterations to convergence,
+(b) wall-clock time to convergence, and (c) final exploitability at
+iteration $1{,}000$.
+
+\textbf{Expected results.} Coarser abstractions converge in fewer iterations
+(smaller game tree) but plateau at higher exploitability. $50$ buckets
+provides a good efficiency--quality tradeoff.
+
+\textbf{Figure~\ref{fig:bucket_convergence} (placeholder).} Convergence
+curves for $K \in \{10, 25, 50, 100, 200\}$ buckets.

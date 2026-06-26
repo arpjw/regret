@@ -1,0 +1,38 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Motivation}
+
+Poker has served as a canonical benchmark for game-theoretic AI since the
+early work on Libratus \citep{brown2017libratus} and DeepStack
+\citep{moravcik2017deepstack}. Despite significant progress, the practical
+relationship between abstraction design and solution quality remains
+under-characterized in accessible literature. Most published CFR analyses are
+either purely theoretical (convergence guarantees under idealized conditions)
+or proprietary (commercial solvers with closed implementations).
+
+Regret addresses this gap. By open-sourcing both the solver and the empirical
+analysis framework, we aim to make the following questions answerable without
+access to proprietary tools:
+\begin{itemize}
+  \item How quickly does CFR$^+$ converge as a function of abstraction
+        granularity?
+  \item How much solution quality do we sacrifice by using coarse card or
+        action abstractions?
+  \item What is the practical relationship between CFR$^+$ and no-regret
+        online learning theory?
+\end{itemize}
+
+\subsection{Contributions}
+
+\begin{enumerate}
+  \item An open-source CFR$^+$ reference implementation in Rust with
+        documented abstractions and a reproducible benchmarking harness.
+  \item An empirical convergence analysis measuring exploitability across
+        iteration counts, bucket sizes, and bet-size configurations.
+  \item An abstraction-error quantification: how abstraction granularity
+        affects distance to the true Nash equilibrium.
+  \item A theoretical framing connecting CFR$^+$ to FTRL and Blackwell
+        approachability, with the regret-flooring step situated within the
+        broader online learning literature.
+\end{enumerate}

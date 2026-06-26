@@ -1,0 +1,41 @@
+\section{Connection to online learning theory}
+\label{sec:ol}
+
+\subsection{CFR as FTRL}
+
+CFR can be understood as a variant of Follow-the-Regularized-Leader (FTRL)
+applied independently at each information set. At each infoset, the acting
+player minimizes cumulative regret using a linear loss with entropic
+regularization (regret matching equals FTRL with the negative-entropy
+regularizer).
+
+This connection implies that CFR inherits FTRL's $O(1/\sqrt{T})$ regret
+bound,
+\[
+  \frac{R^T}{T} \;\leq\; \frac{\Delta}{\sqrt{T}},
+\]
+where $\Delta$ is the range of utilities.
+
+\subsection{CFR$^+$ as Optimistic FTRL}
+
+The regret-flooring step in CFR$^+$ is equivalent to the ``optimistic''
+update of Optimistic FTRL \citep{rakhlin2013optimistic}. Optimistic FTRL
+achieves $O(1/T)$ regret when the loss sequence is predictable, which in
+self-play corresponds to the strategy pair converging (each player's
+strategy becomes more predictable as it approaches Nash). This provides a
+theoretical mechanism for the faster empirical convergence of CFR$^+$.
+
+\begin{proposition}
+In self-play with alternating updates, CFR$^+$ with regret flooring is
+equivalent to Optimistic FTRL with a specific predictive term. The $O(1/T)$
+convergence observed empirically follows from the self-play structure
+inducing low predictability error.
+\end{proposition}
+
+\subsection{Blackwell approachability}
+
+The original CFR convergence proof \citep{zinkevich2007} is grounded in
+Blackwell's approachability theorem \citep{blackwell1956analog}. The regret
+minimization at each infoset corresponds to approaching the non-positive
+orthant in regret space; CFR's convergence to Nash follows from the product
+of per-infoset regret minimizers approaching a global regret minimum.

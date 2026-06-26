@@ -1,0 +1,47 @@
+\section{Abstraction error analysis}
+\label{sec:abstraction-error}
+
+\subsection{Definition}
+
+Abstraction error is the difference between the exploitability of the
+abstracted-game Nash strategy evaluated in the full game vs.\ the
+abstracted game. Formally,
+\[
+  \epsilon_{\mathrm{abs}}(K)
+    \;=\; \mathrm{expl}_{\mathrm{full}}(\bar{\sigma}^\star_K)
+       - \mathrm{expl}_{\mathrm{abs}}(\bar{\sigma}^\star_K),
+\]
+where $\bar{\sigma}^\star_K$ is the Nash strategy of the $K$-bucket
+abstracted game.
+
+\subsection{Measurement approach}
+
+We cannot directly compute $\mathrm{expl}_{\mathrm{full}}$ for the complete
+HUNL game. Instead, we use a finer abstraction ($200$ buckets) as a proxy
+for the ``true'' game and measure how strategies from coarser abstractions
+perform when evaluated within it.
+
+\subsection{Card-abstraction error}
+
+We solve to convergence at each bucket count and evaluate the resulting
+strategy in the $200$-bucket proxy game.
+
+\textbf{Expected results.} Abstraction error decreases monotonically with
+bucket count but exhibits diminishing returns above $50$--$100$ buckets.
+Error is more pronounced on wet boards (coordinated texture) where hand
+equity distributions are more sensitive to bucketing resolution.
+
+\textbf{Figure~\ref{fig:card-abs} (placeholder).} Abstraction error vs.\
+bucket count for dry, semi-wet, and wet board textures.
+
+\subsection{Action-abstraction error}
+
+We fix card abstraction at $50$ buckets and vary the bet-size set,
+evaluating exploitability in a richer-action evaluation game.
+
+\textbf{Expected results.} Missing pot-sized bets introduces more error
+than missing small bets, particularly on the flop where pot-size bets are
+part of the polarization structure of GTO play.
+
+\textbf{Figure~\ref{fig:action-abs} (placeholder).} Abstraction error vs.\
+bet-size configuration.

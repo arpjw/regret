@@ -1,0 +1,36 @@
+\section{Reproducibility checklist}
+\label{app:reproducibility}
+
+\subsection*{Hardware}
+All experiments were run on a MacBook Pro (Apple M-series, 16\,GB RAM)
+under macOS Darwin~25. Wall-clock numbers in the paper assume a single
+performance core; Regret is currently single-threaded.
+
+\subsection*{Software versions}
+\begin{itemize}
+  \item Rust toolchain: \texttt{rustc 1.94+ (stable)}
+  \item Node.js: $\geq 18$
+  \item Regret commit hash: pinned at submission (see repository).
+\end{itemize}
+
+\subsection*{Random seeds}
+Card-abstraction Monte Carlo rollouts use a deterministic seed
+(\texttt{0x5EED}). CFR$^+$ updates are deterministic given the seed.
+
+\subsection*{Full hyperparameter table}
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  Hyperparameter            & Symbol            & Default value \\
+  \midrule
+  Card buckets              & $K$               & $50$ \\
+  Equity rollouts           & $N_{\mathrm{MC}}$ & $1{,}000$ \\
+  Bet-size set              & $B$               & $\{0.25, 0.5, 0.75\}$ \\
+  Max raises per street     & $R_{\max}$        & $3$ \\
+  Starting stack            & $S$               & $100$\,bb \\
+  Starting pot              & $P$               & $6$\,bb \\
+  Iterations                & $T$               & $1{,}000$ \\
+  Reporting cadence         & $\tau$            & every $50$ iterations \\
+  \bottomrule
+\end{tabular}
+\end{center}

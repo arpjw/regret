@@ -1,0 +1,13 @@
+\section{Monte Carlo equity estimation}
+\label{app:equity}
+
+For each (hole, board) pair we estimate equity by sampling $1{,}000$
+opponent hands uniformly from the residual deck and completing the runout
+to the river. Wins count as $1$, ties as $0.5$. The estimator is unbiased
+with variance $\sigma^2 / N \leq 0.25 / N \leq 2.5 \times 10^{-4}$ at
+$N = 1{,}000$, giving an RMSE of $\sim 0.016$. The bucketing scheme is
+robust to this noise: a hand mis-bucketed by $\pm 1$ rank percentile
+contributes at most one mis-classified bucket boundary.
+
+A neural-net equity estimator would reduce both variance and per-bucket
+compute, at the cost of a training pipeline; we leave this as future work.

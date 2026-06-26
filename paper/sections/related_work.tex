@@ -1,0 +1,28 @@
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Superhuman poker agents.} Libratus \citep{brown2017libratus} and
+DeepStack \citep{moravcik2017deepstack} are the canonical superhuman HUNL
+agents. Both rely on a blueprint strategy plus real-time subgame solving.
+Neither system's abstraction details are public.
+
+\paragraph{Open-source CFR.} Slumbot \citep{jackson2013} is the strongest
+openly available bot, with a single-threaded CFR implementation and limited
+abstraction analysis.
+
+\paragraph{Theoretical foundations.} CFR$^+$ \citep{tammelin2014} introduces
+regret flooring with theoretical analysis but limited empirical
+characterization. \citet{waugh2009pathologies} document that coarser
+abstractions can produce \emph{more} exploitable strategies---``abstraction
+pathologies''---motivating systematic measurement.
+
+\paragraph{Online learning.} The connection between CFR-style regret
+minimization and Follow-the-Regularized-Leader is implicit in earlier work;
+\citet{hazan2022oco} provides the textbook framework we use here.
+\citet{rakhlin2013optimistic} introduce Optimistic FTRL, whose update we
+relate directly to CFR$^+$'s regret-flooring step in Section~\ref{sec:ol}.
+
+\paragraph{Gap.} No existing work provides an open, reproducible framework
+for empirically measuring the relationship between abstraction granularity
+and solution quality across a range of HUNL configurations. Regret fills
+this gap.

@@ -1,0 +1,85 @@
+\section{Background}
+\label{sec:background}
+
+\subsection{Extensive-form games}
+
+A two-player zero-sum extensive-form game is defined by a game tree where
+each node is either a chance node (nature acts), a decision node (a player
+acts), or a terminal node (payoffs are realized). HUNL is a two-player
+zero-sum game in extensive form with imperfect information.
+
+Formally: a game
+$\Gamma = (N, H, Z, A, u, \sigma_c, \mathcal{I})$ where $N = \{1, 2\}$ is the
+player set, $H$ is the set of histories, $Z \subseteq H$ is the set of
+terminal nodes, $A(h)$ is the action set at history $h$,
+$u_i\colon Z \to \mathbb{R}$ is the utility function for player $i$,
+$\sigma_c$ is the chance strategy, and $\mathcal{I}$ is the information
+partition.
+
+\subsection{Nash equilibrium and exploitability}
+
+A \emph{Nash equilibrium} is a strategy profile
+$(\sigma_1^\star, \sigma_2^\star)$ such that neither player can improve their
+expected utility by unilaterally deviating:
+\[
+  u_i(\sigma_i^\star, \sigma_{-i}^\star)
+    \;\geq\; u_i(\sigma_i, \sigma_{-i}^\star)
+    \quad \forall \sigma_i, \forall i \in N.
+\]
+In two-player zero-sum games, Nash equilibria always exist and all Nash
+equilibria yield the same expected payoffs (von Neumann's minimax theorem).
+
+\emph{Exploitability} of a strategy $\sigma_i$ is the maximum gain available
+to a best-responding opponent:
+\[
+  \mathrm{expl}(\sigma_i)
+    \;=\; \max_{\sigma_{-i}} u_{-i}(\sigma_i, \sigma_{-i}) - v^\star,
+\]
+where $v^\star$ is the game value. Exploitability of $0$ means $\sigma_i$ is
+a Nash strategy. We use exploitability as our primary convergence metric.
+
+\subsection{Counterfactual regret minimization (CFR)}
+
+CFR \citep{zinkevich2007} solves for Nash equilibria in extensive-form games
+by iteratively minimizing regret at each information set. At each iteration
+$t$, for each infoset $I$ and action $a$:
+\[
+  r^t(I, a)
+    \;=\; \sum_{h \in I} \pi_{-i}^{\sigma^t}(h)
+          \left[v_i(\sigma^t_{I \to a}, h) - v_i(\sigma^t, h)\right],
+\]
+with cumulative regret $R^T(I, a) = \sum_{t=1}^T r^t(I, a)$ and the
+regret-matching strategy update
+\[
+  \sigma^{T+1}(I, a)
+    \;=\; \frac{R^T_+(I, a)}{\sum_{a'} R^T_+(I, a')},
+\]
+where $R^T_+(I, a) = \max(R^T(I, a), 0)$. The average strategy
+$\bar{\sigma}^T$ has exploitability bounded by $O(1/\sqrt{T})$.
+
+\subsection{CFR$^+$}
+
+CFR$^+$ \citep{tammelin2014} modifies the regret accumulation step:
+\[
+  R^{T+1}(I, a)
+    \;=\; \max\!\left(R^T(I, a) + r^T(I, a), \; 0\right).
+\]
+Negative cumulative regrets are floored to zero at each iteration rather
+than at strategy computation time. This seemingly small change yields
+dramatically faster empirical convergence---in practice, CFR$^+$ typically
+requires an order of magnitude fewer iterations than vanilla CFR to reach
+the same exploitability level.
+
+\subsection{Game abstraction}
+
+Full HUNL has approximately $10^{18}$ distinct infosets---computationally
+intractable for exact solving. Practical solvers work within an abstracted
+game.
+
+\paragraph{Card abstraction} groups strategically similar hands into buckets,
+replacing exact hand identities with equity-percentile estimates. The
+abstracted game has $K$ card buckets instead of the full hand space.
+
+\paragraph{Action abstraction} discretizes the continuous bet-size space
+into a finite set of sizes, reducing the branching factor at each decision
+point from infinite to a small fixed number.

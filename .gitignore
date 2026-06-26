@@ -1,0 +1,17 @@
+target/
+node_modules/
+.next/
+out/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+*.tsbuildinfo
+.claude/
+paper/main.pdf
+paper/main.aux
+paper/main.log
+paper/main.out
+paper/main.bbl
+paper/main.blg

@@ -1,0 +1,33 @@
+\section{The Regret solver}
+\label{sec:solver}
+
+\subsection{Game representation}
+
+We implement a flop-subgame solver for HUNL. The game tree is built lazily
+during CFR traversal: states encode hole cards, board, pot size, stack
+sizes, street, and abstracted action history. Terminal nodes are detected
+by fold, all-in resolution, or river completion.
+
+\subsection{Abstraction configuration}
+
+\paragraph{Card abstraction.} We implement equity-percentile bucketing.
+For each (hole, board) pair, equity is estimated via Monte Carlo sampling
+(1{,}000 rollouts by default). Hands are sorted by equity and assigned to
+one of $K$ buckets. We evaluate $K \in \{10, 25, 50, 100, 200\}$.
+
+\paragraph{Action abstraction.} We test configurations of $\{2, 3, 5\}$
+bet sizes drawn from $\{25\%, 50\%, 75\%, 100\%, \mathrm{all\text{-}in}\}$.
+
+\subsection{Exploitability computation}
+
+We compute exploitability via best-response computation using the
+imperfect-information algorithm of \citet{johanson2011efficient}: opponent
+reach probabilities are propagated forward, then per-infoset action values
+are aggregated and the argmax taken bottom-up. The computation is exact
+within the abstracted game and is invoked every $50$ iterations.
+
+\subsection{Parallelization}
+
+Version~1 implements single-threaded alternating updates (player~0 on even
+iterations, player~1 on odd). Parallel external-sampling CFR is left for
+future work.

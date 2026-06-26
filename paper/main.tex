@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[numbers]{natbib}
+\usepackage{xcolor}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+}
+
+\title{Regret: An Open Framework for Empirical Analysis of CFR$^+$\\
+       Convergence and Abstraction Error in\\ Heads-Up No-Limit Hold'em}
+\author{Arya Somu \\ \texttt{aryasomu18@gmail.com}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/related_work}
+\input{sections/solver}
+\input{sections/convergence}
+\input{sections/abstraction_error}
+\input{sections/online_learning}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix_exploitability}
+\input{sections/appendix_equity}
+\input{sections/appendix_reproducibility}
+
+\end{document}

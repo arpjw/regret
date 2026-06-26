@@ -1,0 +1,29 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Practical implications for solver design}
+
+The abstraction-error results suggest that card-abstraction granularity
+above $50$--$100$ buckets yields diminishing quality improvements, while
+action-abstraction error is more sensitive to \emph{which} sizes are
+included than to \emph{how many}. Practitioners building HUNL solvers
+should prioritize including pot-sized bets and all-in before adding
+intermediate sizes.
+
+\subsection{Relation to broader game-solving}
+
+The CFR--FTRL connection has implications beyond poker. Any finite
+two-player zero-sum extensive-form game can in principle be solved using
+the same framework. The abstraction methodology (equity bucketing, action
+discretization) generalizes to any game with continuous action spaces or
+large state representations.
+
+\subsection{Limitations}
+
+\begin{itemize}
+  \item Flop-subgame solving only; preflop and river results may differ.
+  \item Abstraction-error measurement uses a proxy ``true'' game, not the
+        actual full game.
+  \item Single-threaded implementation; parallel CFR may exhibit different
+        convergence behavior.
+\end{itemize}

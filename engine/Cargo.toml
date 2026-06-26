@@ -1,0 +1,20 @@
+[package]
+name = "regret-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "CFR+ Nash equilibrium solver for Heads-Up No-Limit Hold'em"
+
+[lib]
+name = "regret_engine"
+path = "src/lib.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+dashmap.workspace = true
+rand.workspace = true
+rand_chacha.workspace = true
+
+[dev-dependencies]
