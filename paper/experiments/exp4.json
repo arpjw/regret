@@ -1,0 +1,72 @@
+{
+  "experiment_1": null,
+  "experiment_2": null,
+  "experiment_3": null,
+  "experiment_4": [
+    {
+      "bet_sizes": [
+        "0.50"
+      ],
+      "num_sizes": 1,
+      "iterations": 1500,
+      "abs_exploitability": 0.9796281295318499,
+      "proxy_exploitability": 3.1355746542124328,
+      "abstraction_error": 2.1559465246805827,
+      "elapsed_ms": 102016
+    },
+    {
+      "bet_sizes": [
+        "0.25",
+        "0.75"
+      ],
+      "num_sizes": 2,
+      "iterations": 1500,
+      "abs_exploitability": 1.0859744327058085,
+      "proxy_exploitability": 2.1122278992571824,
+      "abstraction_error": 1.0262534665513738,
+      "elapsed_ms": 274328
+    },
+    {
+      "bet_sizes": [
+        "0.25",
+        "0.50",
+        "0.75"
+      ],
+      "num_sizes": 3,
+      "iterations": 1500,
+      "abs_exploitability": 1.0922097880195267,
+      "proxy_exploitability": 2.00509631015726,
+      "abstraction_error": 0.9128865221377331,
+      "elapsed_ms": 556691
+    },
+    {
+      "bet_sizes": [
+        "0.25",
+        "0.50",
+        "0.75",
+        "1.00"
+      ],
+      "num_sizes": 4,
+      "iterations": 1500,
+      "abs_exploitability": 1.4393959228097872,
+      "proxy_exploitability": 1.858722041323941,
+      "abstraction_error": 0.4193261185141537,
+      "elapsed_ms": 1214452
+    },
+    {
+      "bet_sizes": [
+        "0.25",
+        "0.50",
+        "0.75",
+        "1.00",
+        "2.00"
+      ],
+      "num_sizes": 5,
+      "iterations": 1500,
+      "abs_exploitability": 2.2338387495365835,
+      "proxy_exploitability": 2.2338387495365835,
+      "abstraction_error": 0.0,
+      "elapsed_ms": 1895614
+    }
+  ]
+}

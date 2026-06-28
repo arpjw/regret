@@ -15,7 +15,25 @@ performance core; Regret is currently single-threaded.
 
 \subsection*{Random seeds}
 Card-abstraction Monte Carlo rollouts use a deterministic seed
-(\texttt{0x5EED}). CFR$^+$ updates are deterministic given the seed.
+(\texttt{0x5EED} by default; \texttt{0xC0FFEE} for the experiments in
+Sections~\ref{sec:convergence}--\ref{sec:abstraction-error}). CFR$^+$
+updates are deterministic given the seed.
+
+\subsection*{Reproducing the paper figures}
+The full pipeline lives under \texttt{paper/experiments/}:
+\begin{itemize}
+  \item \texttt{cargo build --release --bin run\_experiments}
+  \item \texttt{./target/release/run\_experiments --out paper/experiments/expN.json --experiments N}
+        (one of $N\in\{1,2,3,4\}$ per process; parallelizable across cores)
+  \item \texttt{python3 paper/experiments/finalize.sh} --- merges the
+        per-experiment JSONs into \texttt{results.json}, re-renders
+        Figures~1--4 at 300\,DPI, and rewrites the prose tables in
+        Sections~\ref{sec:convergence}--\ref{sec:abstraction-error}.
+\end{itemize}
+Wall-clock budget on the reference hardware: roughly $13$\,min for
+experiment~1 at $T\!=\!1{,}000$, $115$\,min for experiment~2 (dominated
+by $K\!=\!200$), $90$\,min for experiment~3 (dominated by $K\!=\!100\!\times\!3$ boards),
+and $30$\,min for experiment~4 at $T\!=\!1{,}500$.
 
 \subsection*{Full hyperparameter table}
 \begin{center}

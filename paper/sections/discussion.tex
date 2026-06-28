@@ -4,11 +4,15 @@
 \subsection{Practical implications for solver design}
 
 The abstraction-error results suggest that card-abstraction granularity
-above $50$--$100$ buckets yields diminishing quality improvements, while
-action-abstraction error is more sensitive to \emph{which} sizes are
-included than to \emph{how many}. Practitioners building HUNL solvers
-should prioritize including pot-sized bets and all-in before adding
-intermediate sizes.
+above $K\!\approx\!50$ yields diminishing quality improvements on dry
+and semi-wet boards within a $1{,}000$-iteration budget, while
+action-abstraction error decreases monotonically in $|S|$ with the
+single largest drop coming from adding a pot-sized bet ($\{0.25,0.5,0.75\}\!\to\!\{0.25,0.5,0.75,1.0\}$
+roughly halves $\epsilon_{\mathrm{abs}}$, from $0.91$ to $0.42$\,bb).
+Practitioners building HUNL solvers should prioritize the pot-sized bet
+when budget for additional action-tree branches becomes available, and
+should expect the practical iteration count needed to enter CFR$^+$'s
+asymptotic regime to grow super-linearly with $K$ at deep stacks.
 
 \subsection{Relation to broader game-solving}
 

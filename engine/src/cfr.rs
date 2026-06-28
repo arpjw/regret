@@ -98,20 +98,39 @@ impl ConvergenceHistory {
     }
 }
 
+/// Which regret-update rule the solver runs.
+///
+/// * [`CfrVariant::Plus`] — CFR$^+$: floor negative cumulative regret to zero
+///   and weight iteration-$t$ averaging contributions by $t$ (linear CFR$^+$
+///   averaging, Tammelin 2014).
+/// * [`CfrVariant::Vanilla`] — classical CFR: signed regret, uniform
+///   averaging (each iteration's strategy contributes with weight 1).
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum CfrVariant {
+    Plus,
+    Vanilla,
+}
+
 pub struct CFRSolver<G: Game> {
     pub game: G,
     pub data: Arc<DashMap<u64, InfoSetData>>,
     pub iterations: u64,
     pub history: ConvergenceHistory,
+    pub variant: CfrVariant,
 }
 
 impl<G: Game> CFRSolver<G> {
     pub fn new(game: G) -> Self {
+        Self::with_variant(game, CfrVariant::Plus)
+    }
+
+    pub fn with_variant(game: G, variant: CfrVariant) -> Self {
         Self {
             game,
             data: Arc::new(DashMap::new()),
             iterations: 0,
             history: ConvergenceHistory::default(),
+            variant,
         }
     }
 
@@ -172,12 +191,19 @@ impl<G: Game> CFRSolver<G> {
             // count as t (1-indexed). This is the standard CFR+ averaging
             // scheme from Tammelin (2014); without it, exploitability
             // decays an order of magnitude more slowly on small games like
-            // Kuhn.
-            let weight = (self.iterations + 1) as f64;
+            // Kuhn. Vanilla CFR uses uniform averaging.
+            let weight = match self.variant {
+                CfrVariant::Plus => (self.iterations + 1) as f64,
+                CfrVariant::Vanilla => 1.0,
+            };
             let mut entry = self.data.get_mut(&key).expect("infoset present");
             for a in 0..n {
                 let regret = counterfactual * (action_values[a] - node_value);
-                entry.regret_sum[a] = (entry.regret_sum[a] + regret).max(0.0);
+                let new_regret = entry.regret_sum[a] + regret;
+                entry.regret_sum[a] = match self.variant {
+                    CfrVariant::Plus => new_regret.max(0.0),
+                    CfrVariant::Vanilla => new_regret,
+                };
                 entry.strategy_sum[a] += weight * reach * strategy[a];
             }
         }
@@ -642,5 +668,34 @@ mod tests {
         let first = solver.history.points.first().expect("recorded points");
         let last = solver.history.points.last().expect("recorded points");
         assert!(last.exploitability < first.exploitability);
+    }
+
+    /// Diagnostic: compare CFR$^+$ and vanilla CFR exploitability curves on
+    /// Kuhn poker. Runs both for the same iteration count and prints the
+    /// trajectory. Used during paper experiment validation to confirm
+    /// CFR$^+$ does in fact dominate vanilla CFR on a game small enough to
+    /// reach the asymptotic regime within a few hundred iters.
+    #[test]
+    fn cfr_vs_cfr_plus_kuhn_trajectory() {
+        let mut plus = CFRSolver::with_variant(Kuhn, CfrVariant::Plus);
+        plus.run(2000);
+        let mut vanilla = CFRSolver::with_variant(Kuhn, CfrVariant::Vanilla);
+        vanilla.run(2000);
+
+        println!("\niter\tCFR+\tCFR");
+        for (a, b) in plus.history.points.iter().zip(vanilla.history.points.iter()) {
+            println!(
+                "{}\t{:.5}\t{:.5}",
+                a.iteration, a.exploitability, b.exploitability
+            );
+        }
+        let plus_last = plus.history.points.last().unwrap().exploitability;
+        let vanilla_last = vanilla.history.points.last().unwrap().exploitability;
+        println!("final: CFR+ = {plus_last:.5}, CFR = {vanilla_last:.5}");
+        assert!(
+            plus_last <= vanilla_last * 1.2,
+            "expected CFR+ to be at least as fast as vanilla CFR on Kuhn at 2000 iters: \
+             plus={plus_last:.5}, vanilla={vanilla_last:.5}"
+        );
     }
 }

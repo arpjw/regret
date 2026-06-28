@@ -11,9 +11,10 @@ pub mod eval;
 pub mod game;
 pub mod hunl;
 pub mod infoset;
+pub mod proxy;
 
 pub use abstraction::{ActionAbstraction, CardAbstraction};
-pub use cfr::{CFRSolver, ConvergenceHistory, ConvergencePoint, Game};
+pub use cfr::{CFRSolver, CfrVariant, ConvergenceHistory, ConvergencePoint, Game};
 pub use eval::{HandEvaluator, HandRank};
 pub use game::{Action, AbstractAction, ActionHistory, Card, GameState, Player, Street, Suit};
 pub use hunl::{HunlFlop, HunlFlopConfig, HunlFlopState, LastAct, Terminal};

@@ -241,6 +241,20 @@ impl HunlFlop {
             .expect("hole not in residual deck for this board")
     }
 
+    /// Full `canonical_hole -> bucket` map for the residual deck. Used by
+    /// cross-abstraction projection: an evaluator using `K`-bucket abstraction
+    /// and an evaluator using `K'`-bucket abstraction must reconcile their
+    /// bucket indices via the underlying hole.
+    pub fn bucket_of_hole_map(&self) -> HashMap<[Card; 2], u32> {
+        self.tables().bucket_of_hole.clone()
+    }
+
+    /// `(bucket_pair, probability)` enumeration used at the root chance node.
+    /// Exposed so cross-abstraction code can mirror the chance distribution.
+    pub fn bucket_pair_probs(&self) -> Vec<((u32, u32), f64)> {
+        self.tables().bucket_pair_probs.clone()
+    }
+
     /// Stable infoset key matching what `<HunlFlop as Game>::infoset_key`
     /// computes for the same `(bucket, history, player)` triple.
     pub fn infoset_key_from_components(

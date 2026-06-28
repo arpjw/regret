@@ -1,0 +1,622 @@
+{
+  "experiment_1": null,
+  "experiment_2": [
+    {
+      "label": "K=10",
+      "config": {
+        "board": [
+          "Ah",
+          "Ks",
+          "7d"
+        ],
+        "starting_pot": 6.0,
+        "starting_stack": 100.0,
+        "bet_sizes": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "card_buckets": 10,
+        "equity_rollouts": 500,
+        "max_raises_per_street": 3,
+        "abstraction_seed": 12648430
+      },
+      "points": [
+        {
+          "iteration": 50,
+          "exploitability": 1.6783719931200154,
+          "elapsed_ms": 5345
+        },
+        {
+          "iteration": 100,
+          "exploitability": 1.201782982247392,
+          "elapsed_ms": 5952
+        },
+        {
+          "iteration": 150,
+          "exploitability": 0.9864144962805896,
+          "elapsed_ms": 6547
+        },
+        {
+          "iteration": 200,
+          "exploitability": 0.844626023560208,
+          "elapsed_ms": 7452
+        },
+        {
+          "iteration": 250,
+          "exploitability": 0.7591170709881737,
+          "elapsed_ms": 8214
+        },
+        {
+          "iteration": 300,
+          "exploitability": 0.7087017907068843,
+          "elapsed_ms": 8983
+        },
+        {
+          "iteration": 350,
+          "exploitability": 0.6574764915540405,
+          "elapsed_ms": 9729
+        },
+        {
+          "iteration": 400,
+          "exploitability": 0.6262526585917643,
+          "elapsed_ms": 10479
+        },
+        {
+          "iteration": 450,
+          "exploitability": 0.5846409786219551,
+          "elapsed_ms": 11257
+        },
+        {
+          "iteration": 500,
+          "exploitability": 0.563540882091562,
+          "elapsed_ms": 12001
+        },
+        {
+          "iteration": 550,
+          "exploitability": 0.5430418170673181,
+          "elapsed_ms": 12724
+        },
+        {
+          "iteration": 600,
+          "exploitability": 0.5208285941155951,
+          "elapsed_ms": 13463
+        },
+        {
+          "iteration": 650,
+          "exploitability": 0.5000597143329438,
+          "elapsed_ms": 14171
+        },
+        {
+          "iteration": 700,
+          "exploitability": 0.48494233669710607,
+          "elapsed_ms": 14895
+        },
+        {
+          "iteration": 750,
+          "exploitability": 0.4704286698982729,
+          "elapsed_ms": 15615
+        },
+        {
+          "iteration": 800,
+          "exploitability": 0.4575130581375369,
+          "elapsed_ms": 16320
+        },
+        {
+          "iteration": 850,
+          "exploitability": 0.44268055761056035,
+          "elapsed_ms": 17085
+        },
+        {
+          "iteration": 900,
+          "exploitability": 0.4239438086738186,
+          "elapsed_ms": 17850
+        },
+        {
+          "iteration": 950,
+          "exploitability": 0.41795384926130463,
+          "elapsed_ms": 18608
+        },
+        {
+          "iteration": 1000,
+          "exploitability": 0.4081049065827838,
+          "elapsed_ms": 19373
+        }
+      ]
+    },
+    {
+      "label": "K=25",
+      "config": {
+        "board": [
+          "Ah",
+          "Ks",
+          "7d"
+        ],
+        "starting_pot": 6.0,
+        "starting_stack": 100.0,
+        "bet_sizes": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "card_buckets": 25,
+        "equity_rollouts": 500,
+        "max_raises_per_street": 3,
+        "abstraction_seed": 12648430
+      },
+      "points": [
+        {
+          "iteration": 50,
+          "exploitability": 2.8277688491977306,
+          "elapsed_ms": 11161
+        },
+        {
+          "iteration": 100,
+          "exploitability": 2.162691839393099,
+          "elapsed_ms": 16763
+        },
+        {
+          "iteration": 150,
+          "exploitability": 1.806027602627288,
+          "elapsed_ms": 22332
+        },
+        {
+          "iteration": 200,
+          "exploitability": 1.6421477241910836,
+          "elapsed_ms": 30246
+        },
+        {
+          "iteration": 250,
+          "exploitability": 1.5035333389614305,
+          "elapsed_ms": 34902
+        },
+        {
+          "iteration": 300,
+          "exploitability": 1.3683935333820336,
+          "elapsed_ms": 39645
+        },
+        {
+          "iteration": 350,
+          "exploitability": 1.2817154123584413,
+          "elapsed_ms": 45616
+        },
+        {
+          "iteration": 400,
+          "exploitability": 1.211421999711973,
+          "elapsed_ms": 50972
+        },
+        {
+          "iteration": 450,
+          "exploitability": 1.145193375673599,
+          "elapsed_ms": 55983
+        },
+        {
+          "iteration": 500,
+          "exploitability": 1.083333415438164,
+          "elapsed_ms": 61893
+        },
+        {
+          "iteration": 550,
+          "exploitability": 1.0238747150165248,
+          "elapsed_ms": 66306
+        },
+        {
+          "iteration": 600,
+          "exploitability": 0.9840460408464418,
+          "elapsed_ms": 70988
+        },
+        {
+          "iteration": 650,
+          "exploitability": 0.9469930954643444,
+          "elapsed_ms": 76326
+        },
+        {
+          "iteration": 700,
+          "exploitability": 0.9124399723982057,
+          "elapsed_ms": 84230
+        },
+        {
+          "iteration": 750,
+          "exploitability": 0.8722814172010935,
+          "elapsed_ms": 88699
+        },
+        {
+          "iteration": 800,
+          "exploitability": 0.8136499863436789,
+          "elapsed_ms": 93884
+        },
+        {
+          "iteration": 850,
+          "exploitability": 0.8090015022722906,
+          "elapsed_ms": 99179
+        },
+        {
+          "iteration": 900,
+          "exploitability": 0.7902902269439076,
+          "elapsed_ms": 104722
+        },
+        {
+          "iteration": 950,
+          "exploitability": 0.7601114660564934,
+          "elapsed_ms": 109322
+        },
+        {
+          "iteration": 1000,
+          "exploitability": 0.7450205959114785,
+          "elapsed_ms": 114061
+        }
+      ]
+    },
+    {
+      "label": "K=50",
+      "config": {
+        "board": [
+          "Ah",
+          "Ks",
+          "7d"
+        ],
+        "starting_pot": 6.0,
+        "starting_stack": 100.0,
+        "bet_sizes": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "card_buckets": 50,
+        "equity_rollouts": 500,
+        "max_raises_per_street": 3,
+        "abstraction_seed": 12648430
+      },
+      "points": [
+        {
+          "iteration": 50,
+          "exploitability": 3.5754348396630222,
+          "elapsed_ms": 24858
+        },
+        {
+          "iteration": 100,
+          "exploitability": 2.535649776683716,
+          "elapsed_ms": 42887
+        },
+        {
+          "iteration": 150,
+          "exploitability": 2.284563067959294,
+          "elapsed_ms": 60779
+        },
+        {
+          "iteration": 200,
+          "exploitability": 2.131171248557463,
+          "elapsed_ms": 78643
+        },
+        {
+          "iteration": 250,
+          "exploitability": 2.004855711760621,
+          "elapsed_ms": 96508
+        },
+        {
+          "iteration": 300,
+          "exploitability": 1.8797982977444976,
+          "elapsed_ms": 116482
+        },
+        {
+          "iteration": 350,
+          "exploitability": 1.845202610199982,
+          "elapsed_ms": 135896
+        },
+        {
+          "iteration": 400,
+          "exploitability": 1.81904363956791,
+          "elapsed_ms": 154830
+        },
+        {
+          "iteration": 450,
+          "exploitability": 1.7516079757612544,
+          "elapsed_ms": 183470
+        },
+        {
+          "iteration": 500,
+          "exploitability": 1.6977399664737023,
+          "elapsed_ms": 209619
+        },
+        {
+          "iteration": 550,
+          "exploitability": 1.6379205754496886,
+          "elapsed_ms": 234691
+        },
+        {
+          "iteration": 600,
+          "exploitability": 1.611390947338538,
+          "elapsed_ms": 265638
+        },
+        {
+          "iteration": 650,
+          "exploitability": 1.5724149373603578,
+          "elapsed_ms": 291910
+        },
+        {
+          "iteration": 700,
+          "exploitability": 1.515400133855671,
+          "elapsed_ms": 309957
+        },
+        {
+          "iteration": 750,
+          "exploitability": 1.4648169472222843,
+          "elapsed_ms": 327702
+        },
+        {
+          "iteration": 800,
+          "exploitability": 1.4234900600866913,
+          "elapsed_ms": 347301
+        },
+        {
+          "iteration": 850,
+          "exploitability": 1.3860793538262575,
+          "elapsed_ms": 367464
+        },
+        {
+          "iteration": 900,
+          "exploitability": 1.3510761093896893,
+          "elapsed_ms": 389187
+        },
+        {
+          "iteration": 950,
+          "exploitability": 1.3163727690773968,
+          "elapsed_ms": 411955
+        },
+        {
+          "iteration": 1000,
+          "exploitability": 1.2836003038217183,
+          "elapsed_ms": 432673
+        }
+      ]
+    },
+    {
+      "label": "K=100",
+      "config": {
+        "board": [
+          "Ah",
+          "Ks",
+          "7d"
+        ],
+        "starting_pot": 6.0,
+        "starting_stack": 100.0,
+        "bet_sizes": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "card_buckets": 100,
+        "equity_rollouts": 500,
+        "max_raises_per_street": 3,
+        "abstraction_seed": 12648430
+      },
+      "points": [
+        {
+          "iteration": 50,
+          "exploitability": 6.684691999291939,
+          "elapsed_ms": 78730
+        },
+        {
+          "iteration": 100,
+          "exploitability": 3.578709315363056,
+          "elapsed_ms": 153920
+        },
+        {
+          "iteration": 150,
+          "exploitability": 3.0232005137349818,
+          "elapsed_ms": 224438
+        },
+        {
+          "iteration": 200,
+          "exploitability": 2.755045450403463,
+          "elapsed_ms": 284470
+        },
+        {
+          "iteration": 250,
+          "exploitability": 2.4873369891552173,
+          "elapsed_ms": 342283
+        },
+        {
+          "iteration": 300,
+          "exploitability": 2.331805363556954,
+          "elapsed_ms": 400456
+        },
+        {
+          "iteration": 350,
+          "exploitability": 2.2106724316332005,
+          "elapsed_ms": 470022
+        },
+        {
+          "iteration": 400,
+          "exploitability": 2.065939615325525,
+          "elapsed_ms": 548465
+        },
+        {
+          "iteration": 450,
+          "exploitability": 1.9624130745818456,
+          "elapsed_ms": 615929
+        },
+        {
+          "iteration": 500,
+          "exploitability": 1.9005626021925905,
+          "elapsed_ms": 684306
+        },
+        {
+          "iteration": 550,
+          "exploitability": 1.8225405073776377,
+          "elapsed_ms": 748065
+        },
+        {
+          "iteration": 600,
+          "exploitability": 1.757280343525896,
+          "elapsed_ms": 824274
+        },
+        {
+          "iteration": 650,
+          "exploitability": 1.7061926707384143,
+          "elapsed_ms": 887487
+        },
+        {
+          "iteration": 700,
+          "exploitability": 1.6929425276891137,
+          "elapsed_ms": 959688
+        },
+        {
+          "iteration": 750,
+          "exploitability": 1.6588789238454433,
+          "elapsed_ms": 1042236
+        },
+        {
+          "iteration": 800,
+          "exploitability": 1.6327803644842496,
+          "elapsed_ms": 1114570
+        },
+        {
+          "iteration": 850,
+          "exploitability": 1.6042438162433783,
+          "elapsed_ms": 1185714
+        },
+        {
+          "iteration": 900,
+          "exploitability": 1.5934601090428653,
+          "elapsed_ms": 1258185
+        },
+        {
+          "iteration": 950,
+          "exploitability": 1.568191489104175,
+          "elapsed_ms": 1335719
+        },
+        {
+          "iteration": 1000,
+          "exploitability": 1.5311889155251552,
+          "elapsed_ms": 1407150
+        }
+      ]
+    },
+    {
+      "label": "K=200",
+      "config": {
+        "board": [
+          "Ah",
+          "Ks",
+          "7d"
+        ],
+        "starting_pot": 6.0,
+        "starting_stack": 100.0,
+        "bet_sizes": [
+          0.25,
+          0.5,
+          0.75
+        ],
+        "card_buckets": 200,
+        "equity_rollouts": 500,
+        "max_raises_per_street": 3,
+        "abstraction_seed": 12648430
+      },
+      "points": [
+        {
+          "iteration": 50,
+          "exploitability": 10.59660513743691,
+          "elapsed_ms": 309124
+        },
+        {
+          "iteration": 100,
+          "exploitability": 6.781062558828111,
+          "elapsed_ms": 577342
+        },
+        {
+          "iteration": 150,
+          "exploitability": 4.559141786078993,
+          "elapsed_ms": 854291
+        },
+        {
+          "iteration": 200,
+          "exploitability": 3.744393958407926,
+          "elapsed_ms": 1138198
+        },
+        {
+          "iteration": 250,
+          "exploitability": 3.2230185514017156,
+          "elapsed_ms": 1440176
+        },
+        {
+          "iteration": 300,
+          "exploitability": 2.9871630088580954,
+          "elapsed_ms": 1738575
+        },
+        {
+          "iteration": 350,
+          "exploitability": 2.7671026082337846,
+          "elapsed_ms": 2011664
+        },
+        {
+          "iteration": 400,
+          "exploitability": 2.609654447354147,
+          "elapsed_ms": 2244071
+        },
+        {
+          "iteration": 450,
+          "exploitability": 2.4458135678755983,
+          "elapsed_ms": 2441492
+        },
+        {
+          "iteration": 500,
+          "exploitability": 2.3666891997791204,
+          "elapsed_ms": 2630968
+        },
+        {
+          "iteration": 550,
+          "exploitability": 2.2730732318157862,
+          "elapsed_ms": 2815295
+        },
+        {
+          "iteration": 600,
+          "exploitability": 2.1946181904690087,
+          "elapsed_ms": 2994937
+        },
+        {
+          "iteration": 650,
+          "exploitability": 2.129052333319091,
+          "elapsed_ms": 3175546
+        },
+        {
+          "iteration": 700,
+          "exploitability": 2.0712280661122016,
+          "elapsed_ms": 3355460
+        },
+        {
+          "iteration": 750,
+          "exploitability": 2.0088400986378128,
+          "elapsed_ms": 3538997
+        },
+        {
+          "iteration": 800,
+          "exploitability": 1.9609781907390589,
+          "elapsed_ms": 3717445
+        },
+        {
+          "iteration": 850,
+          "exploitability": 1.9088609249615598,
+          "elapsed_ms": 3903217
+        },
+        {
+          "iteration": 900,
+          "exploitability": 1.8788453581433355,
+          "elapsed_ms": 4104381
+        },
+        {
+          "iteration": 950,
+          "exploitability": 1.8378479353698047,
+          "elapsed_ms": 4283178
+        },
+        {
+          "iteration": 1000,
+          "exploitability": 1.7838658884022243,
+          "elapsed_ms": 4463480
+        }
+      ]
+    }
+  ],
+  "experiment_3": null,
+  "experiment_4": null
+}

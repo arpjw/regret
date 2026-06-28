@@ -1,0 +1,127 @@
+{
+  "experiment_1": null,
+  "experiment_2": null,
+  "experiment_3": [
+    {
+      "label": "K=10",
+      "card_buckets": 10,
+      "board": "dry",
+      "iterations": 1000,
+      "abs_exploitability": 0.4081049065827838,
+      "proxy_exploitability": 0.5642607819546267,
+      "abstraction_error": 0.1561558753718429,
+      "elapsed_ms": 43191
+    },
+    {
+      "label": "K=25",
+      "card_buckets": 25,
+      "board": "dry",
+      "iterations": 1000,
+      "abs_exploitability": 0.7450205959114785,
+      "proxy_exploitability": 3.1982001775950364,
+      "abstraction_error": 2.4531795816835578,
+      "elapsed_ms": 127076
+    },
+    {
+      "label": "K=50",
+      "card_buckets": 50,
+      "board": "dry",
+      "iterations": 1000,
+      "abs_exploitability": 1.2836003038217183,
+      "proxy_exploitability": 2.940470144551173,
+      "abstraction_error": 1.6568698407294549,
+      "elapsed_ms": 453646
+    },
+    {
+      "label": "K=100",
+      "card_buckets": 100,
+      "board": "dry",
+      "iterations": 1000,
+      "abs_exploitability": 1.5311889155251552,
+      "proxy_exploitability": 2.635630784440224,
+      "abstraction_error": 1.1044418689150686,
+      "elapsed_ms": 1443126
+    },
+    {
+      "label": "K=10",
+      "card_buckets": 10,
+      "board": "semi-wet",
+      "iterations": 1000,
+      "abs_exploitability": 0.2353348941248257,
+      "proxy_exploitability": 1.3864159827490987,
+      "abstraction_error": 1.151081088624273,
+      "elapsed_ms": 44372
+    },
+    {
+      "label": "K=25",
+      "card_buckets": 25,
+      "board": "semi-wet",
+      "iterations": 1000,
+      "abs_exploitability": 0.6001997383198792,
+      "proxy_exploitability": 1.6212226232703884,
+      "abstraction_error": 1.0210228849505092,
+      "elapsed_ms": 134840
+    },
+    {
+      "label": "K=50",
+      "card_buckets": 50,
+      "board": "semi-wet",
+      "iterations": 1000,
+      "abs_exploitability": 0.8916155887437155,
+      "proxy_exploitability": 1.4236984051978057,
+      "abstraction_error": 0.5320828164540902,
+      "elapsed_ms": 376088
+    },
+    {
+      "label": "K=100",
+      "card_buckets": 100,
+      "board": "semi-wet",
+      "iterations": 1000,
+      "abs_exploitability": 1.2501438120975685,
+      "proxy_exploitability": 1.7856595937167627,
+      "abstraction_error": 0.5355157816191942,
+      "elapsed_ms": 1501092
+    },
+    {
+      "label": "K=10",
+      "card_buckets": 10,
+      "board": "wet",
+      "iterations": 1000,
+      "abs_exploitability": 0.2526746689183148,
+      "proxy_exploitability": 1.2967655683777712,
+      "abstraction_error": 1.0440908994594564,
+      "elapsed_ms": 31997
+    },
+    {
+      "label": "K=25",
+      "card_buckets": 25,
+      "board": "wet",
+      "iterations": 1000,
+      "abs_exploitability": 0.545756929162258,
+      "proxy_exploitability": 0.9562916331458138,
+      "abstraction_error": 0.41053470398355574,
+      "elapsed_ms": 97357
+    },
+    {
+      "label": "K=50",
+      "card_buckets": 50,
+      "board": "wet",
+      "iterations": 1000,
+      "abs_exploitability": 0.7994209221651853,
+      "proxy_exploitability": 1.6158907960890763,
+      "abstraction_error": 0.8164698739238909,
+      "elapsed_ms": 281329
+    },
+    {
+      "label": "K=100",
+      "card_buckets": 100,
+      "board": "wet",
+      "iterations": 1000,
+      "abs_exploitability": 1.066371792920854,
+      "proxy_exploitability": 1.813017930536732,
+      "abstraction_error": 0.746646137615878,
+      "elapsed_ms": 927942
+    }
+  ],
+  "experiment_4": null
+}
