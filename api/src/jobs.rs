@@ -58,6 +58,34 @@ impl SolveRequest {
         for (i, s) in self.board.iter().enumerate() {
             parsed[i] = Card::parse(s).ok_or_else(|| format!("invalid card: {s}"))?;
         }
+        if parsed[0] == parsed[1] || parsed[0] == parsed[2] || parsed[1] == parsed[2] {
+            return Err("board cards must be distinct".into());
+        }
+        if !self.stack_depth.is_finite() || self.stack_depth <= 0.0 {
+            return Err("stack_depth must be finite and positive".into());
+        }
+        if !self.starting_pot.is_finite() || self.starting_pot <= 0.0 {
+            return Err("starting_pot must be finite and positive".into());
+        }
+        if self.bet_sizes.len() > u8::MAX as usize {
+            return Err("bet_sizes cannot have more than 255 entries".into());
+        }
+        if self
+            .bet_sizes
+            .iter()
+            .any(|size| !size.is_finite() || *size <= 0.0)
+        {
+            return Err("bet_sizes must be finite and positive".into());
+        }
+        if self.card_buckets == 0 {
+            return Err("card_buckets must be positive".into());
+        }
+        if self.equity_rollouts == 0 {
+            return Err("equity_rollouts must be positive".into());
+        }
+        if self.max_iterations == 0 {
+            return Err("max_iterations must be positive".into());
+        }
         Ok(HunlFlopConfig {
             board: parsed,
             starting_pot: self.starting_pot,
@@ -379,6 +407,57 @@ mod tests {
             Card::parse("Ks").unwrap(),
             Card::parse("7d").unwrap(),
         ]
+    }
+
+    fn valid_request() -> SolveRequest {
+        SolveRequest {
+            matchup: None,
+            stack_depth: 50.0,
+            board: vec!["Ah".into(), "Ks".into(), "7d".into()],
+            bet_sizes: vec![0.5, 1.0],
+            card_buckets: 4,
+            max_iterations: 50,
+            starting_pot: 6.0,
+            max_raises_per_street: 1,
+            equity_rollouts: 30,
+        }
+    }
+
+    #[test]
+    fn reject_invalid_solve_requests_before_spawning() {
+        let mut req = valid_request();
+        assert!(req.to_config().is_ok());
+
+        req.board[1] = "Ah".into();
+        assert_eq!(req.to_config().unwrap_err(), "board cards must be distinct");
+        req = valid_request();
+
+        req.stack_depth = 0.0;
+        assert!(req.to_config().is_err());
+        req.stack_depth = f64::INFINITY;
+        assert!(req.to_config().is_err());
+        req = valid_request();
+
+        req.starting_pot = -1.0;
+        assert!(req.to_config().is_err());
+        req = valid_request();
+
+        req.bet_sizes = vec![0.5, f64::NAN];
+        assert!(req.to_config().is_err());
+        req.bet_sizes = vec![0.5; 256];
+        assert!(req.to_config().is_err());
+        req = valid_request();
+
+        req.card_buckets = 0;
+        assert!(req.to_config().is_err());
+        req = valid_request();
+
+        req.equity_rollouts = 0;
+        assert!(req.to_config().is_err());
+        req = valid_request();
+
+        req.max_iterations = 0;
+        assert!(req.to_config().is_err());
     }
 
     #[test]
