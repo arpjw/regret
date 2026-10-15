@@ -52,10 +52,14 @@ fn default_equity_rollouts() -> u32 {
 // Bound requests to configurations already supported by the UI and research
 // experiments. The solver has no job cancellation or resource quota.
 const MAX_BET_SIZES: usize = 5;
+// A finite bet fraction can still overflow pot arithmetic if it is enormous.
+const MAX_BET_SIZE: f64 = 10.0;
 const MAX_CARD_BUCKETS: u32 = 200;
 const MAX_EQUITY_ROLLOUTS: u32 = 1_000;
 const MAX_RAISES_PER_STREET: u8 = 3;
 const MAX_ITERATIONS: u64 = 20_000;
+const MAX_STACK_DEPTH: f64 = 200.0;
+const MAX_STARTING_POT: f64 = 200.0;
 
 impl SolveRequest {
     pub fn to_config(&self) -> Result<HunlFlopConfig, String> {
@@ -69,11 +73,17 @@ impl SolveRequest {
         if parsed[0] == parsed[1] || parsed[0] == parsed[2] || parsed[1] == parsed[2] {
             return Err("board cards must be distinct".into());
         }
-        if !self.stack_depth.is_finite() || self.stack_depth <= 0.0 {
-            return Err("stack_depth must be finite and positive".into());
+        if !self.stack_depth.is_finite()
+            || self.stack_depth <= 0.0
+            || self.stack_depth > MAX_STACK_DEPTH
+        {
+            return Err("stack_depth must be finite, positive, and at most 200".into());
         }
-        if !self.starting_pot.is_finite() || self.starting_pot <= 0.0 {
-            return Err("starting_pot must be finite and positive".into());
+        if !self.starting_pot.is_finite()
+            || self.starting_pot <= 0.0
+            || self.starting_pot > MAX_STARTING_POT
+        {
+            return Err("starting_pot must be finite, positive, and at most 200".into());
         }
         if self.bet_sizes.len() > MAX_BET_SIZES {
             return Err("bet_sizes cannot have more than 5 entries".into());
@@ -81,9 +91,9 @@ impl SolveRequest {
         if self
             .bet_sizes
             .iter()
-            .any(|size| !size.is_finite() || *size <= 0.0)
+            .any(|size| !size.is_finite() || *size <= 0.0 || *size > MAX_BET_SIZE)
         {
-            return Err("bet_sizes must be finite and positive".into());
+            return Err("bet_sizes must be finite, positive, and at most 10".into());
         }
         // The engine allocates several card_buckets × card_buckets tables.
         // Keep requests within the documented and frontend-supported range.
@@ -169,18 +179,14 @@ pub fn spawn_solver(jobs: Arc<JobMap>, config: HunlFlopConfig, max_iterations: u
     job_id
 }
 
-async fn run_solver(
-    handle: Arc<JobHandle>,
-    config: HunlFlopConfig,
-    iterations: u64,
-    id: String,
-) {
+async fn run_solver(handle: Arc<JobHandle>, config: HunlFlopConfig, iterations: u64, id: String) {
     *handle.status.write().await = JobStatus::Running;
     tracing::info!(job = %id, "solver starting");
 
     let handle_clone = handle.clone();
-    let result = tokio::task::spawn_blocking(move || run_solver_blocking(handle_clone, config, iterations))
-        .await;
+    let result =
+        tokio::task::spawn_blocking(move || run_solver_blocking(handle_clone, config, iterations))
+            .await;
 
     match result {
         Ok(Ok(_)) => {
@@ -193,7 +199,9 @@ async fn run_solver(
         }
         Err(e) => {
             let msg = format!("solver task panicked: {e}");
-            *handle.status.write().await = JobStatus::Error { message: msg.clone() };
+            *handle.status.write().await = JobStatus::Error {
+                message: msg.clone(),
+            };
             tracing::error!(job = %id, error = %msg, "solver panicked");
         }
     }
@@ -449,13 +457,19 @@ mod tests {
         assert!(req.to_config().is_err());
         req.stack_depth = f64::INFINITY;
         assert!(req.to_config().is_err());
+        req.stack_depth = 201.0;
+        assert!(req.to_config().is_err());
         req = valid_request();
 
         req.starting_pot = -1.0;
         assert!(req.to_config().is_err());
+        req.starting_pot = 201.0;
+        assert!(req.to_config().is_err());
         req = valid_request();
 
         req.bet_sizes = vec![0.5, f64::NAN];
+        assert!(req.to_config().is_err());
+        req.bet_sizes = vec![f64::MAX];
         assert!(req.to_config().is_err());
         req.bet_sizes = vec![0.5; 5];
         assert!(req.to_config().is_ok());
@@ -589,7 +603,10 @@ mod tests {
         let strategies = handle.strategies.blocking_read();
         let probs = strategies.get(&resolved_key).cloned().expect("found");
 
-        assert_eq!(probs, seeded, "resolver must return the seeded distribution");
+        assert_eq!(
+            probs, seeded,
+            "resolver must return the seeded distribution"
+        );
         // Verify it is, in fact, non-uniform — guards against the resolver
         // accidentally falling back to a default.
         let mean = probs.iter().sum::<f64>() / probs.len() as f64;
