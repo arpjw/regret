@@ -49,6 +49,14 @@ fn default_equity_rollouts() -> u32 {
     500
 }
 
+// Bound requests to configurations already supported by the UI and research
+// experiments. The solver has no job cancellation or resource quota.
+const MAX_BET_SIZES: usize = 5;
+const MAX_CARD_BUCKETS: u32 = 200;
+const MAX_EQUITY_ROLLOUTS: u32 = 1_000;
+const MAX_RAISES_PER_STREET: u8 = 3;
+const MAX_ITERATIONS: u64 = 20_000;
+
 impl SolveRequest {
     pub fn to_config(&self) -> Result<HunlFlopConfig, String> {
         if self.board.len() != 3 {
@@ -67,8 +75,8 @@ impl SolveRequest {
         if !self.starting_pot.is_finite() || self.starting_pot <= 0.0 {
             return Err("starting_pot must be finite and positive".into());
         }
-        if self.bet_sizes.len() > u8::MAX as usize {
-            return Err("bet_sizes cannot have more than 255 entries".into());
+        if self.bet_sizes.len() > MAX_BET_SIZES {
+            return Err("bet_sizes cannot have more than 5 entries".into());
         }
         if self
             .bet_sizes
@@ -77,14 +85,19 @@ impl SolveRequest {
         {
             return Err("bet_sizes must be finite and positive".into());
         }
-        if self.card_buckets == 0 {
-            return Err("card_buckets must be positive".into());
+        // The engine allocates several card_buckets × card_buckets tables.
+        // Keep requests within the documented and frontend-supported range.
+        if !(1..=MAX_CARD_BUCKETS).contains(&self.card_buckets) {
+            return Err("card_buckets must be between 1 and 200".into());
         }
-        if self.equity_rollouts == 0 {
-            return Err("equity_rollouts must be positive".into());
+        if !(1..=MAX_EQUITY_ROLLOUTS).contains(&self.equity_rollouts) {
+            return Err("equity_rollouts must be between 1 and 1000".into());
         }
-        if self.max_iterations == 0 {
-            return Err("max_iterations must be positive".into());
+        if self.max_raises_per_street > MAX_RAISES_PER_STREET {
+            return Err("max_raises_per_street cannot exceed 3".into());
+        }
+        if !(1..=MAX_ITERATIONS).contains(&self.max_iterations) {
+            return Err("max_iterations must be between 1 and 20000".into());
         }
         Ok(HunlFlopConfig {
             board: parsed,
@@ -444,19 +457,39 @@ mod tests {
 
         req.bet_sizes = vec![0.5, f64::NAN];
         assert!(req.to_config().is_err());
-        req.bet_sizes = vec![0.5; 256];
+        req.bet_sizes = vec![0.5; 5];
+        assert!(req.to_config().is_ok());
+        req.bet_sizes.push(0.5);
         assert!(req.to_config().is_err());
         req = valid_request();
 
         req.card_buckets = 0;
         assert!(req.to_config().is_err());
+        req.card_buckets = 200;
+        assert!(req.to_config().is_ok());
+        req.card_buckets = 201;
+        assert!(req.to_config().is_err());
         req = valid_request();
 
         req.equity_rollouts = 0;
         assert!(req.to_config().is_err());
+        req.equity_rollouts = 1_000;
+        assert!(req.to_config().is_ok());
+        req.equity_rollouts = 1_001;
+        assert!(req.to_config().is_err());
+        req = valid_request();
+
+        req.max_raises_per_street = 3;
+        assert!(req.to_config().is_ok());
+        req.max_raises_per_street = 4;
+        assert!(req.to_config().is_err());
         req = valid_request();
 
         req.max_iterations = 0;
+        assert!(req.to_config().is_err());
+        req.max_iterations = 20_000;
+        assert!(req.to_config().is_ok());
+        req.max_iterations = 20_001;
         assert!(req.to_config().is_err());
     }
 
